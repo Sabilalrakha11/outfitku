@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: sabilalrakha11/outfitku
 
 jobs:
   # --- JOB 1: TESTING --------------------------------------------------------
@@ -96,7 +96,7 @@ jobs:
             cd /home/${{ secrets.SERVER_USER }}/KELOMPOK_1
             
             # Pull image terbaru
-            docker pull ghcr.io/${{ github.repository }}:latest
+            docker pull ghcr.io/sabilalrakha11/outfitku:latest
 
             # Update container tanpa downtime besar
             docker compose up -d --remove-orphans
