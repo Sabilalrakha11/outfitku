@@ -7,7 +7,7 @@
 
     <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
     
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
 
