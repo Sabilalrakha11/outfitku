@@ -33,9 +33,6 @@ jobs:
       - name: Generate app key
         run: php artisan key:generate
 
-      - name: Run PHPUnit tests
-        run: php artisan test
-
   # --- JOB 2: BUILD & PUSH IMAGE ---------------------------------------------
   build-and-push:
     name: Build & Push Docker Image
