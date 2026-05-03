@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            // Nambahin kolom 'role', nilai bawaannya 'user', ditaruh setelah kolom 'password'
-            $table->string('role')->default('user')->after('password');
-        });
+        // Cek dulu, kalau kolom 'role' BELUM ADA di tabel 'users', baru dieksekusi
+        if (!Schema::hasColumn('users', 'role')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->string('role')->default('user')->after('password');
+            });
+        }
     }
 
     /**
