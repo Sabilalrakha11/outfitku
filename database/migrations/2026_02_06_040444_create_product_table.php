@@ -9,16 +9,21 @@ return new class extends Migration {
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            
-            // Ini penawarnya cuy: Kolom penyambung ke tabel stores
             $table->foreignId('store_id')->constrained('stores')->cascadeOnDelete();
             
             $table->string('nama');
-            $table->enum('kategori', ['kemeja','celana','jaket','dress']);
             $table->integer('harga');
-            $table->integer('tinggi_min');
-            $table->integer('tinggi_max');
-            $table->enum('bentuk_badan', ['kurus','sedang','berisi']);
+            
+            // 2 Kolom baru yang ditagih sama Controller:
+            $table->text('deskripsi'); 
+            $table->string('gambar');  
+            
+            // Kolom bawaan lama kita kasih 'nullable()' biar MySQL nggak marah kalau dikosongin dari form
+            $table->enum('kategori', ['kemeja','celana','jaket','dress'])->nullable();
+            $table->integer('tinggi_min')->nullable();
+            $table->integer('tinggi_max')->nullable();
+            $table->enum('bentuk_badan', ['kurus','sedang','berisi'])->nullable();
+            
             $table->timestamps();
         });
     }
