@@ -14,8 +14,8 @@ class ProductController extends Controller
     {
         $store = auth()->user()->store;
 
-        // GEMBOK KEAMANAN: Tendang kalau toko belum aktif
-        if (!$store || $store->status !== 'aktif') {
+        // GEMBOK KEAMANAN: Sesuaikan dengan status database ('approved')
+        if (!$store || $store->status !== 'approved') {
             return redirect('/dashboard')->with('error', 'Toko kamu belum aktif! Tidak bisa menambah produk.');
         }
 
@@ -27,8 +27,8 @@ class ProductController extends Controller
     {
         $store = auth()->user()->store;
 
-        // GEMBOK KEAMANAN EKSTRA: Jaga-jaga ada yang nembak data langsung dari luar
-        if (!$store || $store->status !== 'aktif') {
+        // GEMBOK KEAMANAN EKSTRA: Sesuaikan juga di sini ('approved')
+        if (!$store || $store->status !== 'approved') {
             return redirect('/dashboard')->with('error', 'Toko kamu belum aktif! Tidak bisa menyimpan produk.');
         }
 
