@@ -53,10 +53,21 @@ Route::middleware('auth')->group(function () {
     // Route Riwayat Pesanan (Buyer)
     Route::get('/pesanan-saya', [OrderController::class, 'myOrders'])->name('buyer.orders');
     Route::post('/pesanan-saya/{id}/selesai', [OrderController::class, 'completeOrder'])->name('buyer.orders.complete');
-    // Route Khusus Admin Moderasi Toko
-    Route::get('/admin/stores', [AdminController::class, 'index'])->name('admin.stores');
-    Route::post('/admin/stores/{id}/approve', [AdminController::class, 'approve'])->name('admin.stores.approve');
-    Route::post('/admin/stores/{id}/reject', [AdminController::class, 'reject'])->name('admin.stores.reject');
+});
+
+/*
+|--------------------------------------------------------------------------
+| ROUTE KHUSUS SUPER ADMIN
+|--------------------------------------------------------------------------
+*/
+// Kita tumpuk 2 lapis: harus login (auth) DAN harus admin (IsAdmin)
+Route::middleware(['auth', \App\Http\Middleware\IsAdmin::class])->group(function () {
+    
+    // URL-nya disamakan dengan arah redirect dari AuthController tadi
+    Route::get('/super-admin', [AdminController::class, 'index'])->name('admin.stores');
+    Route::post('/super-admin/{id}/approve', [AdminController::class, 'approve'])->name('admin.stores.approve');
+    Route::post('/super-admin/{id}/reject', [AdminController::class, 'reject'])->name('admin.stores.reject');
+
 });
 
 // Route Lupa Password

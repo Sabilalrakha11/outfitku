@@ -17,27 +17,34 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    // =========================
+// =========================
     // PROSES LOGIN
     // =========================
     public function authenticate(Request $request)
-{
-    $credentials = $request->validate([
-        'email' => 'required|email',
-        'password' => 'required'
-    ]);
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
 
-    if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
 
-        $request->session()->regenerate();
+            $request->session()->regenerate();
 
-        return redirect()->route('home');
+            // --- CEK PANGKAT (ROLE) DISINI ---
+            if (auth()->user()->role === 'admin') {
+                // Kalau yang login jabatannya admin, arahkan ke rute /super-admin
+                return redirect('/super-admin'); 
+            }
+
+            // Kalau user/seller biasa, arahkan ke rute home kayak biasa
+            return redirect()->route('home');
+        }
+
+        return back()->withErrors([
+            'email' => 'Email atau password salah',
+        ]);
     }
-
-    return back()->withErrors([
-        'email' => 'Email atau password salah',
-    ]);
-}
 
 
 
