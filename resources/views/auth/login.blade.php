@@ -5,13 +5,18 @@
     <div class="auth-box">
         <h1 class="auth-title">LOGIN</h1>
         <p class="auth-subtitle">Masuk ke akun Outfitology Anda</p>
+        @error('email')
+    <div style="color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center; font-size: 14px;">
+        ⚠️ {{ $message }}
+    </div>
+@enderror
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="email" required autofocus>
+                <input type="email" name="email" value="{{ old('email') }}" required autofocus>
             </div>
 
             <div class="form-group">
